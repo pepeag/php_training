@@ -1,6 +1,7 @@
 <?php
     session_start();
     session_destroy();
+    header("location: index.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,9 +40,6 @@
         <a href="logout.php">
             <button class="btn btn-danger text-white mb-3" style="width:200px">Logout</button>
         </a>
-        </div>
-        <div class="col-6">
-            <b class="bg-success form-control text-center">Logout success!</b>
         </div>
         </div>
     </div>

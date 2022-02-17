@@ -1,13 +1,46 @@
 <?php
     session_start(); 
+    function checkStrongPassword($password)
+    {
+         //default flag false
+        $upperStatus = false;
+        $lowerStatus = false;
+        $numberStatus = false;
+        $specialStatus = false;
+        if (preg_match('/[A-Z]/', $password)) {
+            $upperStatus = true;
+        }
+        if (preg_match('/[a-z]/', $password)) {
+            $lowerStatus = true;
+        }
+        if (preg_match('/[0-9]/', $password)) {
+            $numberStatus = true;
+        }
+        if (preg_match('/[!@#$%^&*]/', $password)) {
+            $specialStatus = true;
+        }
+        //if all contain $status show true or $status show false
+        if ($upperStatus == true && $lowerStatus == true && $numberStatus == true && $specialStatus == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     if(isset($_POST['loginBtn'])){
         $userEmail=$_POST['userEmail'];
+    if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL)) {
+        $emailErr= "Invalid Email Format! Please Try Again";
+    }
         $userPassword=$_POST['userPassword'];
+        $status= checkStrongPassword($userPassword);
+        if(!$status){
+            $passwordErr= "Invalid Password!(eg. must contain A-Z,a-z,0-9,!@#$%^&*";
+        }
        if($userEmail!="" && $userPassword!=""){
         if($userEmail==$_SESSION['email'] && password_verify($userPassword,$_SESSION['password'])){
-            echo "<h1 class=\"center\">Login Success</h1>";
+            echo "<h1 class=\"center\">Login Successfully!</h1>";
         }else{
-            echo "<h1 class=\"center\">Login Fail.Try Again...</h1>";
+            echo "<h1 class=\"center\">Login Fail! Email or Password is incorrect.</h1>";
         }
        }else{
            echo "need to fill";
@@ -40,6 +73,9 @@
     .center{
         text-align:center;
     }
+    .error {
+        color: #FF0000;
+    }
 </style>
 </head>
 <body class="bg-dark">
@@ -52,7 +88,7 @@
         <a href="register.php">
             <button class="btn btn-success text-white mb-3" style="width:200px">Register</button>
         </a>
-        <a href="logout.php">
+        <a href="logout.php" class="hide-logout">
             <button class="btn btn-danger text-white mb-3" style="width:200px">Logout</button>
         </a>
         </div>
@@ -62,8 +98,10 @@
                     <form method="POST">
                     <label for="">Email</label>
                     <input class="form-control mb-3" type="email" name="userEmail" required>
+                    <p class="error"><small><?php echo $emailErr?></small></p>
                     <label for="">Password</label>
                     <input class="form-control mb-3" type="password" name="userPassword" required>
+                    <p class="error"><small><?php echo $passwordErr?></small></p>
                     <button type="submit" class="btn btn-dark text-white float-end" name="loginBtn">Login</button>
                     </form>
                 </div>

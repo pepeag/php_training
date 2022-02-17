@@ -71,6 +71,8 @@
 			<?php echo calculateAge($_POST['date_of_birth']);?>
 		</div>
 	<?php }
+
+	//calculate Age Funtion
 	function calculateAge($date_of_birth)
 	{
 		$birth_date = new DateTime($date_of_birth);
@@ -79,7 +81,7 @@
 			echo 'Error';
 		}
 		$age = $current_date->diff($birth_date);
-		return 'Your Age is: ' . $age->y. ' Years '. $age->m . ' Months ';
+		return 'Your Age is: ' . $age->y. ' Years '. $age->m . ' Months '. $age->d.'Days';
 	}
 	?>
 	</div>
