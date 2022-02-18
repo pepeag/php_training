@@ -1,10 +1,11 @@
-<?php
-$txt_file = fopen('allFile/hellotxt.txt', 'r');
+<?php 
+$a=1;
+$txt_file = fopen('allFile/hellotxt.txt','r');
 echo "<br>";
 echo "<h2>I am Text File!</h2>";
 while ($line = fgets($txt_file)) {
-    echo (" " . $line) . "<br>";
-    $a++;
+ echo(" ".$line)."<br>";
+ $a++;
 }
 fclose($txt_file);
 
