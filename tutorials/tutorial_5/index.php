@@ -1,11 +1,10 @@
 <?php 
-$a=1;
+$line=1;
 $txt_file = fopen('allFile/hellotxt.txt','r');
-echo "<br>";
 echo "<h2>I am Text File!</h2>";
 while ($line = fgets($txt_file)) {
  echo(" ".$line)."<br>";
- $a++;
+ $line++;
 }
 fclose($txt_file);
 
@@ -16,16 +15,16 @@ use League\Csv\Reader;
 
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
 $spreadsheet = $reader->load("allFile/Book1.xlsx");
-//$d=$spreadsheet->getSheet(0)->toArray();
+
 $sheetData = $spreadsheet->getActiveSheet()->toArray();
 unset($sheetData[0]);
-$i = 1;
+$index = 1;
 echo "<br><br>";
 echo "<h2>I am Excel!</h2>";
-foreach ($sheetData as $t) {
+foreach ($sheetData as $data) {
     // process element here;
-    echo " " . $t[0] . " , " . $t[1] . " , " . $t[2] . " , " . $t[3] . " , " . $t[4] . " <br>";
-    $i++;
+    echo " " . $data[0] . " , " . $data[1] . " , " . $data[2] . " , " . $data[3] . " , " . $t[4] . " <br>";
+    $index++;
 }
 
 // CSV

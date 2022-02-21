@@ -6,5 +6,5 @@ if (!is_dir($uploaddir)) {
 }
 $uploadfile = $uploaddir . "/" . basename($_FILES['userfile']['name']);
 
-echo "Image Upload Successfully";
+echo "<center>Image Upload Successfully.</center>";
 move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile);
