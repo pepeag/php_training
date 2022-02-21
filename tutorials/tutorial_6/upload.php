@@ -1,10 +1,21 @@
 <?php
 
-$uploaddir = 'C:/httpd-2.4.52-win64-VS16/Apache24/htdocs/php_training/tutorials/tutorial_6/tutorial_img/' . $_POST['idtest'];
-if (!is_dir($uploaddir)) {
-    mkdir($uploaddir);
+$upload_dir = '' . $_POST['idtest'];
+if (!is_dir($upload_dir)) {
+    mkdir($upload_dir);
 }
-$uploadfile = $uploaddir . "/" . basename($_FILES['userfile']['name']);
 
-echo "<center>Image Upload Successfully.</center>";
-move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile);
+if ($_FILES['userfile']['error'] !== UPLOAD_ERR_OK) {
+    die("Upload failed with error code " . $_FILES['userfile']['error']);
+}
+
+$info = getimagesize($_FILES['userfile']['tmp_name']);
+if ($info === FALSE) {
+    die("Unable to determine image type of uploaded file");
+}
+if (($info[2] !== IMAGETYPE_GIF) && ($info[2] !== IMAGETYPE_JPEG) && ($info[2] !== IMAGETYPE_PNG)) {
+    die("Not a gif/jpeg/png");
+}
+$upload_file = $upload_dir . "/" . basename($_FILES['userfile']['name']);
+echo "<center><h2>Image Upload Successfully.</h2></center>";
+move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_file);
