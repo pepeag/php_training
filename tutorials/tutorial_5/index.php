@@ -23,7 +23,7 @@ echo "<br><br>";
 echo "<h2>I am Excel!</h2>";
 foreach ($sheetData as $data) {
     // process element here;
-    echo " " . $data[0] . " , " . $data[1] . " , " . $data[2] . " , " . $data[3] . " , " . $t[4] . " <br>";
+    echo " " . $data[0] . " , " . $data[1] . " , " . $data[2] . " , " . $data[3] . " , " . $data[4] . " <br>";
     $index++;
 }
 
