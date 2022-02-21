@@ -1,8 +1,8 @@
-<form method="post">
+<form method="post" action="upload.php">
 	<h1>QR Code</h1>
-	<input type="text" name="name" placeholder="Enter your name">
-	<input type="text" name="input_text" placeholder="Enter your text">
-	<input class="btn" type="submit" name="submit" value="Generate Qr">
+	<input type="text" name="name" placeholder="Enter your name" required>
+	<input type="text" name="input_text" placeholder="Enter your data" required>
+	<input class="btn" type="submit" name="submit" value="Generate Qr Code">
 </form>
 <style>
 	h1 {
@@ -25,21 +25,4 @@
 		display: inline-block;
 		padding: 10px;
 	}
-
-	img {
-		width: 200px;
-	}
 </style>
-<?php
-include "phpqrcode/qrlib.php";
-if (isset($_POST['submit'])) {
-	$path = 'C:/httpd-2.4.52-win64-VS16/Apache24/htdocs/php_training/tutorials/tutorial_7/image/';
-	$file = $path . $_POST['name'] . '.png';
-	$input_text = $_POST['input_text'];
-	echo "<center><h2>Your Qr Code</h2></center>";
-?>
-	<center><img src='image/<?php echo $_POST['name'] ?>.png' alt="qrcode"></center>
-<?php
-	QRcode::png($input_text, $file);
-}
-?>
