@@ -7,7 +7,6 @@ $first_name_error = $last_name_error = $age_error = $email_error = $password_err
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
 
     $id = $_POST["id"];
-
     $firstName = trim($_POST["first_name"]);
     if (empty($firstName)) {
         $first_name_error = "First Name is required.";
@@ -16,6 +15,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     } else {
         $firstName = $firstName;
     }
+
     $lastName = trim($_POST["last_name"]);
     if (empty($lastName)) {
         $last_name_error = "Last Name is required.";
@@ -24,12 +24,14 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     } else {
         $lastName = $lastName;
     }
+
     $age = trim($_POST["age"]);
     if (empty($age)) {
         $age_error = "Age is required.";
     } else {
         $age = $age;
     }
+
     $email = trim($_POST["email"]);
     if (empty($email)) {
         $email_error = "Email is required.";
@@ -38,6 +40,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     } else {
         $email = $email;
     }
+
     $user_password = trim($_POST["user_password"]);
     if (empty($user_password)) {
         $password_error = "Password is required.";
@@ -46,6 +49,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     } else {
         $user_password = $user_password;
     }
+
     $phoneNumber = trim($_POST["phone_number"]);
     if (empty($phoneNumber)) {
         $phone_number_error = "Phone Number is required.";
@@ -61,10 +65,9 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     } else {
         $address = $address;
     }
-    if (
-        empty($first_name_error_err) && empty($last_name_error) &&
-        empty($email_error) && empty($phone_number_error) && empty($address_error)
-    ) {
+
+    if ((empty($first_name_error) && empty($last_name_error) && empty($email_error) && empty($phone_number_error) && empty($address_error))) {
+
         $user_password = md5($user_password);
         $sql = "UPDATE `users` SET `first_name`= '$firstName',`age`='$age', `last_name`= '$lastName', `email`= '$email',`user_password`='$user_password', `phone_number`= '$phoneNumber', `address`= '$address' WHERE id='$id'";
 

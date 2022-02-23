@@ -7,6 +7,7 @@ $first_name = $last_name = $age = $email = $user_password = $confirm_password = 
 $first_name_error = $last_name_error = $age_error = $email_error = $password_error = $confirm_password_error = $phone_number_error = $address_error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $firstName = trim($_POST["first_name"]);
     if (empty($firstName)) {
         $first_name_error = "First Name is required.";
@@ -15,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $firstName = $firstName;
     }
+
     $lastName = trim($_POST["last_name"]);
     if (empty($lastName)) {
         $last_name_error = "Last Name is required.";
@@ -23,12 +25,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $lastName = $lastName;
     }
+
     $age = trim($_POST["age"]);
     if (empty($age)) {
         $age_error = "Age is required.";
     } else {
         $age = $age;
     }
+
     $email = trim($_POST["email"]);
     if (empty($email)) {
         $email_error = "Email is required.";
@@ -37,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $email = $email;
     }
+
     $user_password = trim($_POST["user_password"]);
     if (empty($user_password)) {
         $password_error = "Password is required.";
@@ -45,17 +50,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $user_password = $user_password;
     }
+
     $confirm_password = trim($_POST["confirm_password"]);
-    if (empty($confrim_password)) {
-        $$confirm_password_error = "Password is required.";
-    } elseif (!filter_var($confrim_password, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-        $$confirm_password_error = "Please enter a valid password.";
+    if (empty($confirm_password)) {
+        $confirm_password_error = "Password is required.";
+    } elseif (!filter_var($confirm_password, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
+        $confirm_password_error = "Please enter a valid password.";
     } else {
         $confirm_password = $confirm_password;
     }
-    if ($user_password !== $confirm_password) {
-        echo "<h2 style='color:red'>Retype password again!</h2>";
-    }
+
     $phoneNumber = trim($_POST["phone_number"]);
     if (empty($phoneNumber)) {
         $phone_number_error = "Phone Number is required.";
@@ -71,17 +75,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $address = $address;
     }
-    if (empty($first_name_error) && empty($last_name_error) && empty($email_error) && empty($phone_number_error) && empty($address_error)) {
-        $user_password = md5($user_password);
-        $sql = "INSERT INTO `users`(`first_name`, `last_name`,`age`, `email`,`user_password`,`phone_number`, `address`) VALUES ('$firstName','$lastName','$age','$email','$user_password','$phoneNumber','$address')";
-        if (mysqli_query($conn, $sql)) {
-            header("location: index.php");
+    if (strlen(trim($user_password)) >= 6 && strlen(trim($confirm_password)) >= 6) {
+
+        if ($user_password === $confirm_password) {
+            if (empty($first_name_error) && empty($last_name_error) && empty($email_error) && empty($phone_number_error) && empty($address_error)) {
+                $user_password = md5($user_password);
+                $sql = "INSERT INTO `users`(`first_name`, `last_name`,`age`, `email`,`user_password`,`phone_number`, `address`) VALUES ('$firstName','$lastName','$age','$email','$user_password','$phoneNumber','$address')";
+                if (mysqli_query($conn, $sql)) {
+                    header("location: index.php");
+                } else {
+                    echo "Something Wrong.Try Again!";
+                    exit();
+                }
+            }
+            mysqli_close($conn);
         } else {
-            echo "Something Wrong.Try Again!";
+            echo "<h2 style='color:red'>Retype password again!</h2>";
         }
+    } else {
+        echo "<h2 style='color:red'>Password must be 6 digit or greater than 6</h2>";
     }
-    mysqli_close($conn);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,49 +133,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group <?php echo (!empty($first_name_error)) ? 'has-error' : ''; ?>">
                             <label>First Name</label>
-                            <input type="text" name="first_name" class="form-control" value="">
+                            <input type="text" name="first_name" class="form-control" value="<?php echo isset($_POST["first_name"]) ? $_POST["first_name"] : ''; ?>">
                             <span class="help-block text-danger"><?php echo $first_name_error; ?></span>
                         </div>
 
                         <div class="form-group <?php echo (!empty($last_name_error)) ? 'has-error' : ''; ?>">
                             <label>Last Name</label>
-                            <input type="text" name="last_name" class="form-control" value="">
+                            <input type="text" name="last_name" class="form-control" value="<?php echo isset($_POST["last_name"]) ? $_POST["last_name"] : ''; ?>">
                             <span class="help-block text-danger"><?php echo $last_name_error; ?></span>
                         </div>
                         <div class="form-group <?php echo (!empty($age_error)) ? 'has-error' : ''; ?>">
                             <label>Age</label>
-                            <input type="number" name="age" class="form-control" value="">
+                            <input type="number" name="age" class="form-control" value="<?php echo isset($_POST["age"]) ? $_POST["age"] : ''; ?>">
                             <span class="help-block text-danger"><?php echo $age_error; ?></span>
                         </div>
 
                         <div class="form-group <?php echo (!empty($email_error)) ? 'has-error' : ''; ?>">
                             <label>Email</label>
-                            <input type="email" name="email" class="form-control" value="">
+                            <input type="email" name="email" class="form-control" value="<?php echo isset($_POST["email"]) ? $_POST["email"] : ''; ?>">
                             <span class="help-block text-danger"><?php echo $email_error; ?></span>
                         </div>
                         <div class="form-group <?php echo (!empty($password_error)) ? 'has-error' : ''; ?>">
                             <label>User Password</label>
-                            <input type="password" name="user_password" class="form-control" value="">
+                            <input type="password" name="user_password" class="form-control" value="<?php echo isset($_POST["user_password"]) ? $_POST["user_password"] : ''; ?>">
                             <span class="help-block text-danger"><?php echo $password_error; ?></span>
                         </div>
                         <div class="form-group <?php echo (!empty($confirm_password_error)) ? 'has-error' : ''; ?>">
                             <label>Confirm Password</label>
-                            <input type="password" name="confirm_password" class="form-control" value="">
+                            <input type="password" name="confirm_password" class="form-control" value="<?php echo isset($_POST["confirm_password"]) ? $_POST["confirm_password"] : ''; ?>">
                             <span class="help-block text-danger"><?php echo $confirm_password_error; ?></span>
                         </div>
                         <div class="form-group <?php echo (!empty($phone_number_error)) ? 'has-error' : ''; ?>">
                             <label>Phone Number</label>
-                            <input type="number" name="phone_number" class="form-control" value="">
+                            <input type="number" name="phone_number" class="form-control" value="<?php echo isset($_POST["phone_number"]) ? $_POST["phone_number"] : ''; ?>">
                             <span class="help-block text-danger"><?php echo $phone_number_error; ?></span>
                         </div>
 
                         <div class="form-group <?php echo (!empty($address_error)) ? 'has-error' : ''; ?>">
                             <label>Address</label>
-                            <textarea name="address" class="form-control"></textarea>
+                            <textarea name="address" class="form-control"><?php echo isset($_POST["address"]) ? $_POST["address"] : ''; ?></textarea>
                             <span class="help-block text-danger"><?php echo $address_error; ?></span>
                         </div>
 
-                        <input type="submit" class="btn btn-primary" value="Submit">
+                        <input type="submit" class="btn btn-primary" value="Create">
                         <a href="index.php" class="btn btn-default">Cancel</a>
                     </form>
                 </div>
