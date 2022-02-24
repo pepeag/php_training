@@ -40,16 +40,6 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     } else {
         $email = $email;
     }
-
-    $user_password = trim($_POST["user_password"]);
-    if (empty($user_password)) {
-        $password_error = "Password is required.";
-    } elseif (!filter_var($user_password, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-        $password_error = "Please enter a valid password.";
-    } else {
-        $user_password = $user_password;
-    }
-
     $phoneNumber = trim($_POST["phone_number"]);
     if (empty($phoneNumber)) {
         $phone_number_error = "Phone Number is required.";
