@@ -27,9 +27,11 @@
 
           $query = mysqli_query($conn, "SELECT * FROM `users` WHERE `reset_link_token`='" . $token . "' and `email`='" . $email . "'");
           $curDate = date("Y-m-d H:i:s");
+
           if (mysqli_num_rows($query) > 0) {
 
-            $row = mysqli_fetch_array($query);
+            $row = mysqli_fetch_assoc($query);
+            //var_dump($row['exp_date']);
 
             if ($row['exp_date'] >= $curDate) { ?>
               <form action="update-forget-password.php" method="post">

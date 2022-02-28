@@ -6,9 +6,9 @@ use PHPMailer\PHPMailer\Exception;
 
 require_once "vendor/autoload.php";
 
-require '../mailer/vendor/phpmailer/phpmailer/src/Exception.php';
-require '../mailer/vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../mailer/vendor/phpmailer/phpmailer/src/SMTP.php';
+require '../tutorial_10/vendor/phpmailer/phpmailer/src/Exception.php';
+require '../tutorial_10/vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require '../tutorial_10/vendor/phpmailer/phpmailer/src/SMTP.php';
 
 if (isset($_POST['password-reset-token']) && $_POST['email']) {
 	$emailId = $_POST['email'];
@@ -29,7 +29,7 @@ if (isset($_POST['password-reset-token']) && $_POST['email']) {
 
 		$expDate = date("Y-m-d H:i:s", $expFormat);
 
-		$update = mysqli_query($conn, "UPDATE users set  user_password='" . $user_password . "', reset_link_token='" . $token . "' ,exp_date='" . $expDate . "' WHERE email='" . $emailId . "'");
+		$update = mysqli_query($conn, "UPDATE users set reset_link_token='" . $token . "' ,exp_date='" . $expDate . "' WHERE email='" . $emailId . "'");
 
 		$link = "<a href='http://localhost:8000/reset-password.php?key=" . $emailId . "&token=" . $token . "'>Click To Reset password</a>";
 
@@ -42,7 +42,7 @@ if (isset($_POST['password-reset-token']) && $_POST['email']) {
 			// GMAIL username
 			$mail->Username = "pepeag.1995@gmail.com";
 			// GMAIL password
-			$mail->Password = "your password";
+			$mail->Password = "vvexepcqgbllsxmc";
 			$mail->SMTPSecure = "ssl";
 			$mail->SMTPDebug = 0;
 			// sets GMAIL as the SMTP server
@@ -57,9 +57,7 @@ if (isset($_POST['password-reset-token']) && $_POST['email']) {
 			$mail->isHTML(true);
 			$mail->Body    = 'Click On This Link to Reset Password ' . $link . '';
 			$mail->Send();
-
 			//var_dump($mail->Send());
-
 			echo "Check Your Email and Click on the link sent to your email";
 		} catch (\Exception $e) {
 			echo "Mail Error - >" . $e->getMessage();
