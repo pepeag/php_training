@@ -27,8 +27,8 @@
 
           $query = mysqli_query($conn, "SELECT * FROM `users` WHERE `reset_link_token`='" . $token . "' and `email`='" . $email . "'");
           $curDate = date("Y-m-d H:i:s");
-
-          if (mysqli_num_rows($query) > 0) {
+          
+          if (!$query || mysqli_num_rows($query) > 0) {
 
             $row = mysqli_fetch_assoc($query);
             //var_dump($row['exp_date']);
@@ -48,10 +48,12 @@
                 </div>
                 <input type="submit" name="new-password" class="btn btn-primary">
               </form>
-        <?php }
+        <?php
+            }
           } else {
             echo "<p>This forget password link has been expired</p>";
           }
+          mysqli_close($conn);
         }
         ?>
       </div>
