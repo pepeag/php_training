@@ -6,7 +6,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <div class="mb-3">
+    <div class="mb-3 me-3 mt-3 float-end">
         <a href="{{ url('/students/create') }}" class="btn btn-primary"> <i class="fa fa-plus"></i> Add Student</a>
     </div>
     <table class="table table-striped">
