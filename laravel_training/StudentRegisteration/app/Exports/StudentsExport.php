@@ -13,12 +13,12 @@ class StudentsExport implements FromCollection,WithHeadings
     */
     public function headings(): array
     {
-        return ["ID","Name", "Email", "Date of Birth", "Address", "Major_ID","Created At","Updated At"];
+        return ["Name", "Email", "Date of Birth", "Address", "Major_ID"];
     }
 
     public function collection()
     {
-        return Student::all();
+        return Student::select('name','email','date_of_birth','address','major_id')->get();
 
     }
 

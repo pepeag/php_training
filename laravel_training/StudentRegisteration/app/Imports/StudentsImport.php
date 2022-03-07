@@ -5,8 +5,10 @@ namespace App\Imports;
 use App\Student;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class StudentsImport implements ToModel
+
+class StudentsImport implements ToModel,WithHeadingRow
 {
     /**
      * @param array $row
@@ -26,11 +28,11 @@ class StudentsImport implements ToModel
     public function model(array $row)
     {
         return new Student([
-            'name' => $row[0],
-            'email' => $row[1],
-            'date_of_birth' =>  $this->transformDate($row[2]),
-            'address' => $row[3],
-            'major_id' => $row[4],
+            'name' => $row['name'],
+            'email' => $row['email'],
+            'date_of_birth' =>  $this->transformDate($row['date_of_birth']),
+            'address' => $row['address'],
+            'major_id' => $row['major_id'],
         ]);
     }
 }
