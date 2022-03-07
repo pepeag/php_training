@@ -11,3 +11,7 @@ function updatedMessage($title){
 function deletedMessage($title){
     return "{$title} has been deleted.";
 }
+
+function importMessage($title){
+    return "{$title} has been imported.";
+}

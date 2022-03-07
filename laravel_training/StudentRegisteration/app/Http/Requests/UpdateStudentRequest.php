@@ -24,7 +24,7 @@ class UpdateStudentRequest extends FormRequest
     public function rules()
     {
         $student_id = $this->route('student')->id;
-        
+
             return [
                 "name" => ["required"],
                 "email" => ["required", "unique:students,email,{$student_id}"],

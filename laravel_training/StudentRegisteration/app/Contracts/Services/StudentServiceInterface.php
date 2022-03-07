@@ -15,4 +15,8 @@ interface StudentServiceInterface {
     public function create(StoreStudentRequest $request);
 
     public function delete($student);
+
+    public function export();
+
+    public function import();
 }

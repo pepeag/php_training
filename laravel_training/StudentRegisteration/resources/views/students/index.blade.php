@@ -6,8 +6,14 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <div class="mb-3 me-3 mt-3 float-end">
+    <div class="mb-3 me-3 mt-0 float-end">
         <a href="{{ url('/students/create') }}" class="btn btn-primary"> <i class="fa fa-plus"></i> Add Student</a>
+    </div>
+    <div class="mb-3 ms-3 me-5 mt-0 float-start">
+        <a href="{{ url('/export/') }}" class="btn btn-success"></i>Export CSV</a>
+    </div>
+    <div class="mb-3 me-5 mt-0">
+        <a href="{{ url('/importFile') }}" class="btn btn-success"></i>Import CSV</a>
     </div>
     <table class="table table-striped">
         <thead>

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Contracts\Services\StudentServiceInterface;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Exports\StudentsExport;
+use App\Imports\StudentsImport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Student;
 
 class StudentController extends Controller
@@ -100,7 +103,27 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $this->studentService->delete($student);
-        
+
         return redirect()->back()->with("success_msg", deletedMessage("Student"));
+    }
+
+    public function export()
+    {
+        return $this->studentService->export();
+    }
+
+    public function import()
+    {
+        $fileName = time().'_ppa'.request()->file->getClientOriginalName();
+        request()->file('file')->storeAs('reports', $fileName, 'public');
+
+        $this->studentService->import();
+
+        return redirect()->route('students.index')->with("success_msg", importMessage("CSV File"));
+    }
+
+    public function importFile()
+    {
+       return view('students.import');
     }
 }
