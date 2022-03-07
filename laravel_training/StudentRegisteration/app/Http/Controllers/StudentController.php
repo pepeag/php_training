@@ -114,9 +114,6 @@ class StudentController extends Controller
 
     public function import()
     {
-        $fileName = time().'_ppa'.request()->file->getClientOriginalName();
-        request()->file('file')->storeAs('reports', $fileName, 'public');
-
         $this->studentService->import();
 
         return redirect()->route('students.index')->with("success_msg", importMessage("CSV File"));
