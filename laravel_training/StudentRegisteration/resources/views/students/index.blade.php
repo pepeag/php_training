@@ -37,8 +37,37 @@
                     <td>{{ $item->date_of_birth }}</td>
                     <td>{{ $item->address }}</td>
                     <td>
-                        <x-delete-btn :url="route('students.destroy',$item->id)" :id="$item->id" />
-                        <a href="{{ url('/students/' . $item->id . '/edit') }}"><i class="fas fa-edit text-primary"></i></a>
+
+                        <a href="{{ url('/students/' . $item->id . '/edit') }}" style="text-decoration: none">
+                            <i class="fas fa-edit text-primary me-3"></i>
+                        </a>
+                        <i class="fas fa-trash-alt text-danger" style="cursor: pointer" data-bs-toggle="modal"
+                            data-bs-target="#modal{{ $item->id }}">
+                        </i>
+
+                        <div class="modal fade" id="modal{{ $item->id }}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content ">
+                                    <div class="modal-header text-center">
+                                        <h3 class="modal-title " id="exampleModalLabel">Confirm Delete</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Are you sure to delete this record?</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btn-sm me-3" data-bs-dismiss="modal">No</button>
+                                        <form action="{{ url('/students/' . $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Yes</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             @empty

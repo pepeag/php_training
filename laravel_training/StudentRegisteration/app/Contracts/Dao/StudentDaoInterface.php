@@ -14,7 +14,7 @@ interface StudentDaoInterface {
 
     public function update($request,$student);
 
-    public function create(StoreStudentRequest $request);
+    public function create($request);
 
     public function delete($student);
 }

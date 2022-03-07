@@ -15,7 +15,7 @@ class StudentDao implements StudentDaoInterface{
     {
         $this->model = $model;
     }
-    
+
     public function get(){
 
         return $this->model->with("major")->latest()->get();
@@ -25,7 +25,7 @@ class StudentDao implements StudentDaoInterface{
 
         return $this->model = Major::orderBy("name")->get()->pluck("name", "id");
     }
-    public function create(StoreStudentRequest $request){
+    public function create($request){
 
         return $this->model->create($request->validated());
     }

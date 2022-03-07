@@ -32,7 +32,7 @@ class StudentService implements StudentServiceInterface{
         return $this->studentDao->update($request, $student);
     }
 
-    public function create(StoreStudentRequest $request){
+    public function create($request){
 
         return $this->studentDao->create($request);
 
