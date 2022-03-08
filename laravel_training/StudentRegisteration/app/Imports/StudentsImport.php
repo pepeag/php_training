@@ -15,21 +15,21 @@ class StudentsImport implements ToModel,WithHeadingRow
      * @return \Illuminate\Database\Eloquent\Model|null
      */
 
-    public function transformDate($value, $format = 'Y-m-d')
-    {
-        try {
-            return \Carbon\Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value));
-        } catch (\ErrorException $e) {
-            return \Carbon\Carbon::createFromFormat($format, $value);
-        }
-    }
+    //public function transformDate($value, $format = 'd/m/Y')
+    //{
+    //    try {
+    //        return \Carbon\Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value));
+    //    } catch (\ErrorException $e) {
+    //        return \Carbon\Carbon::createFromFormat($format, $value)->toDateTimeString();
+    //    }
+    //}
 
     public function model(array $row)
     {
         return new Student([
             'name' => $row['name'],
             'email' => $row['email'],
-            'date_of_birth' =>  $this->transformDate($row['date_of_birth']),
+            'date_of_birth' => $row['date_of_birth'],
             'address' => $row['address'],
             'major_id' => $row['major_id'],
         ]);
