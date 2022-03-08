@@ -17,6 +17,6 @@ interface StudentDaoInterface {
     public function create($request);
 
     public function delete($student);
-    
-    public function search($request);
+
+    public function index();
 }

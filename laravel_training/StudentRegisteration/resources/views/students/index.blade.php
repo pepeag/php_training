@@ -6,23 +6,25 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <div class="mb-3 me-3 mt-0 float-end">
+    <div class="mb-3 me-3 mt-0 float-end" style="clear: both;display: block;content: '';">
         <a href="{{ url('/students/create') }}" class="btn btn-primary"> <i class="fa fa-plus"></i> Add Student</a>
     </div>
-    <div class="mb-3 ms-3 me-5 mt-0 float-start">
-        <a href="{{ url('/export/') }}" class="btn btn-success"></i>Export CSV</a>
+    <div class="float-start mt-3" style="clear: both;display: block;content: '';">
+        <div class="mb-3 ms-3 me-5  float-start">
+            <a href="{{ url('/export/') }}" class="btn btn-success"></i>Export CSV</a>
+        </div>
+        <div class="mb-3 me-5  float-start">
+            <a href="{{ url('/importFile') }}" class="btn btn-success"></i>Import CSV</a>
+        </div>
     </div>
-    <div class="mb-3 me-5 mt-0">
-        <a href="{{ url('/importFile') }}" class="btn btn-success"></i>Import CSV</a>
-    </div>
-    <div class="card-header bg-white d-block">
-        <form action="{{url('/searchStudent/')}}" class="mt-2" method="POST" enctype="multipart/form-data">
+    <div class=" bg-white d-block mt-2 float-end">
+        <form action="{{route('students.index')}}" class="mt-2" method="GET" enctype="multipart/form-data">
             @csrf
-            <div class="btn-group me-5 float-left">
-                <input type="text" name="searchData" placeholder="Search" class="col-auto ps-3" value="{{ request()->query("searchData") }}">
+            <div class="btn-group me-5">
+                <input type="text" name="searchData" placeholder="Search" class="col-auto ps-3" value="{{ old('searchData',request()->query("searchData")) }}">
             </div>
-            <div class="btn-group me-5 float-left">
-                <button type="submit" class="btn btn-sm me-4 btn-primary float-end">Search</button>
+            <div class="btn-group me-3 float-end">
+                <button type="submit" class="btn btn-sm btn-primary float-end">Search</button>
             </div>
         </form>
     </div>

@@ -20,5 +20,5 @@ interface StudentServiceInterface {
 
     public function import();
 
-    public function search($request);
+    public function index();
 }

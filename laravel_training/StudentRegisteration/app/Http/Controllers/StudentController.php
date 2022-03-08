@@ -3,10 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Student;
-use Illuminate\Http\Request;
-use App\Exports\StudentsExport;
-use App\Imports\StudentsImport;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Contracts\Services\StudentServiceInterface;
@@ -27,7 +23,7 @@ class StudentController extends Controller
 
     public function index()
     {
-        $items = $this->studentService->get();
+        $items = $this->studentService->index();
 
         return view('students.index', ['items' => $items]);
     }
@@ -125,10 +121,10 @@ class StudentController extends Controller
        return view('students.import');
     }
 
-    public function search(Request $request){
-
-        $items = $this->studentService->search($request);
-
-         return view('students.index')->with(['items' => $items]);
-    }
+//    public function search(Request $request){
+//
+//        $items = $this->studentService->search($request);
+//
+//         return view('students.index')->with(['items' => $items]);
+//    }
 }

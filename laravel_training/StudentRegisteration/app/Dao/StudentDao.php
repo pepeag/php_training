@@ -17,7 +17,6 @@ class StudentDao implements StudentDaoInterface
 
     public function get()
     {
-
         return $this->model->with("major")->latest()->get();
     }
 
@@ -43,18 +42,17 @@ class StudentDao implements StudentDaoInterface
         return $student->delete();
     }
 
-    public function search($request)
+    public function index()
     {
-
-        $key = $request->searchData;
-
-        return $this->model->with("major")->orWhere('name', 'LIKE', '%' . $key . '%')
-            ->orWhere('email', 'LIKE', '%' . $key . '%')->orWhere('date_of_birth', 'LIKE', '%' . $key . '%')
-            ->orWhere('address', 'LIKE', '%' . $key . '%')
-            ->orWhere(function ($query) use ($key) {
-                $query->whereHas('major', function ($q) use ($key) {
-                    $q->where('name', 'LIKE', '%' . $key . '%');
+        return $this->model->when($search = request('searchData'), function ($query) use ($search) {
+            $query->where('name', 'LIKE', '%' . $search . '%')
+            ->orWhere('email', 'LIKE', '%' . $search . '%')->orWhere('date_of_birth', 'LIKE', '%' . $search . '%')
+            ->orWhere('address', 'LIKE', '%' . $search . '%')
+            ->orWhere(function ($query) use ($search) {
+                $query->whereHas('major', function ($qry) use ($search) {
+                    $qry->where('name', 'LIKE', '%' . $search . '%');
                 });
-            })->get();
+            });
+        })->get();
     }
 }

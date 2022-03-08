@@ -22,4 +22,18 @@ class StudentsExport implements FromCollection,WithHeadings
 
     }
 
+//    public function map($student) : array {
+//
+//        return [
+//
+//            $student->name,
+//            $student->email,
+//            $student->date_of_birth,
+//            $student->address,
+//            $student->major->name,
+//
+//        ] ;
+//
+//    }
+
 }
