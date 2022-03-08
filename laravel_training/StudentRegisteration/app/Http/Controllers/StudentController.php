@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Services\StudentServiceInterface;
-use App\Http\Requests\StoreStudentRequest;
-use App\Http\Requests\UpdateStudentRequest;
+use App\Student;
+use Illuminate\Http\Request;
 use App\Exports\StudentsExport;
 use App\Imports\StudentsImport;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Student;
+use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
+use App\Contracts\Services\StudentServiceInterface;
 
 class StudentController extends Controller
 {
@@ -122,5 +123,12 @@ class StudentController extends Controller
     public function importFile()
     {
        return view('students.import');
+    }
+
+    public function search(Request $request){
+
+        $items = $this->studentService->search($request);
+
+         return view('students.index')->with(['items' => $items]);
     }
 }

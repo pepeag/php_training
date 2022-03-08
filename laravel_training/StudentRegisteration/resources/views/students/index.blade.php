@@ -15,6 +15,17 @@
     <div class="mb-3 me-5 mt-0">
         <a href="{{ url('/importFile') }}" class="btn btn-success"></i>Import CSV</a>
     </div>
+    <div class="card-header bg-white d-block">
+        <form action="{{url('/searchStudent/')}}" class="mt-2" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="btn-group me-5 float-left">
+                <input type="text" name="searchData" placeholder="Search" class="col-auto ps-3" value="{{ request()->query("searchData") }}">
+            </div>
+            <div class="btn-group me-5 float-left">
+                <button type="submit" class="btn btn-sm me-4 btn-primary float-end">Search</button>
+            </div>
+        </form>
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>

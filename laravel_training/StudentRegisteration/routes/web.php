@@ -17,6 +17,8 @@ use App\Http\Controllers\StudentController;
 
 Route::resource('students', 'StudentController');
 
+Route::post('searchStudent','StudentController@search');
+
 Route::get('export', 'StudentController@export');
 Route::get('importFile', 'StudentController@importFile');
 Route::post('import', 'StudentController@import');

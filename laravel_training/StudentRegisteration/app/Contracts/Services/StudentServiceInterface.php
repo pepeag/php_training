@@ -19,4 +19,6 @@ interface StudentServiceInterface {
     public function export();
 
     public function import();
+
+    public function search($request);
 }
