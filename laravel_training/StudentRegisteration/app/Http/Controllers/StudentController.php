@@ -28,6 +28,13 @@ class StudentController extends Controller
         return view('students.index', ['items' => $items]);
     }
 
+    public function spaIndex()
+    {
+        $items = $this->studentService->index();
+
+        return view('students.index', ['items' => $items]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

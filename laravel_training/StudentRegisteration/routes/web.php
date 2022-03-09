@@ -2,7 +2,6 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +21,13 @@ Route::resource('students', 'StudentController');
 Route::get('export', 'StudentController@export');
 Route::get('importFile', 'StudentController@importFile');
 Route::post('import', 'StudentController@import');
+
+//spa
+Route::get("spa/students", function(){
+    return view("spa.students.index");
+});
+
+//API
+Route::apiResource('api/students', 'WebApi\StudentApiController');
+Route::apiResource('api/majors', 'WebApi\MajorApiController');
+
