@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('students', 'StudentController');
+
+Route::get('mail','StudentController@mail');
+Route::post('send-mail','StudentController@sendMail');
 //
 //Route::post('student-search','StudentController@search');
 
@@ -28,6 +31,8 @@ Route::get("spa/students", function(){
 });
 
 //API
-Route::apiResource('api/students', 'WebApi\StudentApiController');
+Route::apiResource('api/ajax-students', 'WebApi\StudentApiController');
 Route::apiResource('api/majors', 'WebApi\MajorApiController');
+
+
 
